@@ -6,12 +6,12 @@
 
 {% block body %}
     <h1>Edit '{{ title }}'</h1>
-    <form action="new_entry" method="post">
+    <form action="{{ title }}" method="post">
         {% csrf_token %}
         <label>Title </label>
-        <input class="new-entry" type="text" name="title" placeholder="Title..." value="{{ title }}" autocomplete="off" required disabled>
+        <input class="new-entry" type="text" name="title_edit" placeholder="Title..." value="{{ title }}" autocomplete="off" required disabled>
         <label>Content </label>
-        <textarea type="text" name="content" placeholder="Content..." required>{{ content }}</textarea>
+        <textarea type="text" name="content_edit" placeholder="Content..." required>{{ content }}</textarea>
         <input type="submit" class="btn" value="Apply Changes">
     </form>
 {% endblock %}

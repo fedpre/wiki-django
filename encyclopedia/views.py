@@ -1,5 +1,6 @@
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from . import util
 
 from . import util
@@ -61,14 +62,12 @@ def new_entry(request):
 def edit_page(request, title):
     content = util.get_entry(title)
     if request.method == 'POST':
-        title = request.POST["title"]
-        content = request.POST["content"]
-        util.save_entry(title, content)
+        # title_edit = request.POST["title_edit"]
+        content_edit = request.POST["content_edit"]
+        util.save_entry(title, content_edit)
         wiki_page = util.get_entry(title)
-        return render(request, 'encyclopedia/wiki_page.html', {
-            "page": wiki_page,
-            "title": title,
-        })
+        url = reverse('title', args=[title])
+        return HttpResponseRedirect(url)
     
     return render(request, "encyclopedia/edit_page.html", {
         "title": title,
