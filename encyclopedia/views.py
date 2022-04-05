@@ -13,9 +13,30 @@ def index(request):
 def wiki_page(request, title):
     wiki_page = util.get_entry(title)
     if wiki_page == None:
-        raise Http404
+        return render(request, "encyclopedia/not_found.html", {
+            "title": title,
+        })
 
     return render(request, 'encyclopedia/wiki_page.html', {
         "page": wiki_page,
         "title": title,
     })
+
+def search(request):
+    if request.method == 'POST':
+        new_entries = list()
+        for entry in util.list_entries():
+            if request.POST["q"].lower() == entry.lower():
+                wiki_page = util.get_entry(entry)
+                return render(request, "encyclopedia/wiki_page.html", {
+                    "page": wiki_page,
+                    "title": entry
+                })
+            if request.POST["q"].lower() in entry.lower():
+                new_entries.append(entry)
+
+        return render(request, "encyclopedia/search.html", {
+            "entries": new_entries,
+            "keyword": request.POST["q"],
+        })
+    return render(request, "encyclopedia/not_found.html")
