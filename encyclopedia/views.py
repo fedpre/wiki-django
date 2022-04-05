@@ -1,6 +1,7 @@
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+import random
 from . import util
 
 from . import util
@@ -73,3 +74,10 @@ def edit_page(request, title):
         "title": title,
         "content": content,
     })
+
+def random_entry(request):
+    wiki_pages = util.list_entries()
+    random_number = random.randint(0, len(wiki_pages) - 1)
+    title = wiki_pages[random_number]
+    url = reverse('title', args=[title])
+    return HttpResponseRedirect(url)
