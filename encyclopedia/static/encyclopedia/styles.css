@@ -13,8 +13,18 @@ h1 {
 }
 
 textarea {
-    height: 90vh;
+    height: 50vh;
     width: 80%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    font-size: 14px;
+    outline: none;
+    padding: 10px;
+}
+
+label {
+    display: block;
+    margin-top: 15px;
 }
 
 .main {
@@ -23,6 +33,18 @@ textarea {
 
 .search {
     width: 100%;
+    font-size: 15px;
+    line-height: 15px;
+    height: 35px;
+    padding-left: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 3px;
+    font-size: 14px;
+    outline: none;
+}
+
+.new-entry {
+    width: 50%;
     font-size: 15px;
     line-height: 15px;
     height: 35px;
@@ -45,4 +67,18 @@ textarea {
 
 .sidebar h2 {
     margin-top: 5px;
+}
+
+.btn {
+    display: block;
+    outline: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    background-color: rgb(18, 124, 230);
+    color: #fff;
+}
+
+.btn:hover {
+    color: #fff;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.2);
 }

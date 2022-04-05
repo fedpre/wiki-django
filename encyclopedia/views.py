@@ -1,4 +1,4 @@
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from . import util
 
@@ -40,3 +40,20 @@ def search(request):
             "keyword": request.POST["q"],
         })
     return render(request, "encyclopedia/not_found.html")
+
+def new_entry(request):
+    if request.method == 'POST':
+        title = request.POST["title"]
+        content = request.POST["content"]
+        if title == '' or content == '':
+            return render(request, "encyclopedia/missing.html")
+        wiki_pages = util.list_entries()
+        for entry in wiki_pages:
+            if title.lower() == entry.lower():
+                return render(request, "encyclopedia/duplicate.html", {
+                    "title": title,
+                })
+        util.save_entry(title, content)
+        return HttpResponseRedirect(f"wiki/{title}")
+
+    return render(request, "encyclopedia/new_entry.html", )

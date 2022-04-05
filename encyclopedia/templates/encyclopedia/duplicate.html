@@ -1,0 +1,13 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+    Not found
+{% endblock %}
+
+{% block body %}
+    <h1>'{{ title }}' entry already exists</h1>
+    <p>Please choose a different title.</p>
+
+    <a href="{% url 'index' %}">Home</a>
+
+{% endblock %}
