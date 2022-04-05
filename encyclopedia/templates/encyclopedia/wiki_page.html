@@ -5,6 +5,10 @@
 {% endblock %}
 
 {% block body %}
+    <form action="edit/{{ title }}">
+        {% csrf_token %}
+        <input type="submit" value="Edit" name="edit" class="btn">
+    </form>
     <h1>{{ title }}</h1>
 
     {{ page }}

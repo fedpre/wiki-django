@@ -57,3 +57,20 @@ def new_entry(request):
         return HttpResponseRedirect(f"wiki/{title}")
 
     return render(request, "encyclopedia/new_entry.html", )
+
+def edit_page(request, title):
+    content = util.get_entry(title)
+    if request.method == 'POST':
+        title = request.POST["title"]
+        content = request.POST["content"]
+        util.save_entry(title, content)
+        wiki_page = util.get_entry(title)
+        return render(request, 'encyclopedia/wiki_page.html', {
+            "page": wiki_page,
+            "title": title,
+        })
+    
+    return render(request, "encyclopedia/edit_page.html", {
+        "title": title,
+        "content": content,
+    })
