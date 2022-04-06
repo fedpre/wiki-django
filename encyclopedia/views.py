@@ -24,6 +24,7 @@ def wiki_page(request, title):
 
     return render(request, 'encyclopedia/wiki_page.html', {
         "page": html_conversion,
+        "title": title,
     })
 
 def search(request):
