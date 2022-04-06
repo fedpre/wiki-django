@@ -2,6 +2,7 @@ from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 import random
+from markdown2 import Markdown
 from . import util
 
 from . import util
@@ -14,14 +15,15 @@ def index(request):
 
 def wiki_page(request, title):
     wiki_page = util.get_entry(title)
+    markdowner = Markdown()
+    html_conversion = markdowner.convert(wiki_page)
     if wiki_page == None:
         return render(request, "encyclopedia/not_found.html", {
             "title": title,
         })
 
     return render(request, 'encyclopedia/wiki_page.html', {
-        "page": wiki_page,
-        "title": title,
+        "page": html_conversion,
     })
 
 def search(request):
