@@ -15,12 +15,12 @@ def index(request):
 
 def wiki_page(request, title):
     wiki_page = util.get_entry(title)
-    markdowner = Markdown()
-    html_conversion = markdowner.convert(wiki_page)
     if wiki_page == None:
         return render(request, "encyclopedia/not_found.html", {
             "title": title,
         })
+    markdowner = Markdown()
+    html_conversion = markdowner.convert(wiki_page)
 
     return render(request, 'encyclopedia/wiki_page.html', {
         "page": html_conversion,
@@ -32,11 +32,9 @@ def search(request):
         new_entries = list()
         for entry in util.list_entries():
             if request.POST["q"].lower() == entry.lower():
-                wiki_page = util.get_entry(entry)
-                return render(request, "encyclopedia/wiki_page.html", {
-                    "page": wiki_page,
-                    "title": entry
-                })
+                title = request.POST["q"].lower()
+                url = reverse('title', args=[title])
+                return HttpResponseRedirect(url)
             if request.POST["q"].lower() in entry.lower():
                 new_entries.append(entry)
 
